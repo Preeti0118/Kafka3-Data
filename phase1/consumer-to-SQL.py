@@ -31,9 +31,10 @@ class XactionConsumer:
 
             ### mycode insertion ###
             #convert message values into a tuple and insert into the tabke using .execute command
-            myvalues = list(message.values())
-            myvalues = tuple(myvalues)
+            myvalues = tuple(message.values())
+            # myvalues = tuple(myvalues)
             self.conn.execute("INSERT INTO transaction VALUES (%s,%s,%s,%s)", myvalues)
+            # self.conn.execute("INSERT INTO transaction VALUES (%s,%s,%s,%s)", message.values())
             ### end of my code ###
 
             # add message to the transaction table in your SQL usinf SQLalchemy
