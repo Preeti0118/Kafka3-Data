@@ -29,8 +29,10 @@ class XactionConsumer:
 
 
     def handleMessages(self):
+
         stddevdep = 0
         stddevwth = 0
+
         for message in self.consumer:
             message = message.value
             print('{} received'.format(message))
@@ -44,6 +46,7 @@ class XactionConsumer:
                 self.totdeposit += message['amt']
                 self.depcounter += 1
                 self.avgdep = round(self.totdeposit / self.depcounter, 2)
+
                 self.deplst.append(message['amt'])
                 if len(self.deplst) > 1:
                     stddevdep = round(statistics.stdev(self.deplst), 2)
@@ -52,13 +55,17 @@ class XactionConsumer:
                 self.totwthdrawl += message['amt']
                 self.wthcounter += 1
                 self.avgwth = round(self.totwthdrawl / self.wthcounter, 2)
+
                 self.wthlst.append(message['amt'])
                 if len(self.wthlst) > 1:
                     stddevwth = round(statistics.stdev(self.wthlst), 2)
 
-            print(self.custBalances)
-            print(' average deposit       =  ', self.avgdep, '\n', 'average withdrawl     =  ', self.avgwth, '\n'
-                  ' std dev of deposits   =  ', stddevdep, '\n', 'std dev of withdrawls =  ',stddevwth)
+            #print(self.custBalances)
+            print(' total amount of deposits = ',self.totdeposit, '\n', 'total no of deposits     = ', self.depcounter, '\n',
+            'average deposit          = ', self.avgdep, '\n' ' std dev of deposits      = ', stddevdep, '\n','\n',
+            'total amount of withdrawls = ', self.totwthdrawl, '\n', 'total no of withdrawls     = ', self.wthcounter,'\n',
+            'average withdrawl          = ', self.avgwth,'\n', 'std dev of withdrawls      = ',stddevwth)
+
 
 
 
